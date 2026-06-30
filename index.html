@@ -133,17 +133,24 @@
   .result.lose{ color:#cdbcc9;}
 
   @media (max-width:760px){
-    body{ padding:6px; align-items:center; justify-content:flex-start;}
-    .stage{ flex-direction:column; gap:8px; align-items:center;}
-    .mhud{ display:block; order:0;}
-    .spellname{ display:none;}
-    .fieldwrap{ order:1; width:auto;}
-    canvas#game{
-      width:auto; max-height:none; aspect-ratio:480/640;
-      height:min( calc(100vh - 210px), calc(94vw * 640 / 480) );
-      height:min( calc(100dvh - 210px), calc(94vw * 640 / 480) );
+    body{ padding:6px; align-items:center; justify-content:center; overflow:hidden;}
+    /* stage fills exactly one screen; HUD + buttons keep their size,
+       canvas takes whatever space is left so nothing is clipped */
+    .stage{ flex-direction:column; gap:8px; align-items:center;
+      width:100%;
+      height:calc(100vh - 12px);
+      height:calc(100dvh - 12px);
     }
-    .panel{ order:2; width:min(94vw,440px); max-width:none; flex-direction:column; gap:8px; min-width:0;}
+    .mhud{ display:block; order:0; flex:0 0 auto;}
+    .spellname{ display:none;}
+    .fieldwrap{ order:1; width:auto; flex:1 1 auto; min-height:0;
+      display:flex; align-items:center; justify-content:center;}
+    canvas#game{
+      width:auto; height:100%; max-height:100%; max-width:94vw;
+      aspect-ratio:480/640;
+    }
+    .panel{ order:2; width:min(94vw,440px); max-width:none; flex:0 0 auto;
+      flex-direction:column; gap:8px; min-width:0;}
     .card.charcard, .card.statcard, .legend{ display:none;}
     .touchbar{ display:flex; gap:12px;}
     .tbtn{ padding:18px 0; font-size:16px; letter-spacing:5px;}
